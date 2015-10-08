@@ -5,24 +5,35 @@ package losango.domain;
  */
 public class Coordinate {
 
-    private long latitude;
-    private long longitude;
+    private int latitude;
+    private int longitude;
 
-    public long getLatitude() {
+    public Coordinate() {
+    }
+
+    public Coordinate(int latitude, int longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public int getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(long latitude) {
+    public void setLatitude(int latitude) {
         this.latitude = latitude;
     }
 
-    public long getLongitude() {
+    public int getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(long longitude) {
+    public void setLongitude(int longitude) {
         this.longitude = longitude;
     }
+
+
+
 
 
 }
