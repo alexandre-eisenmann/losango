@@ -1,7 +1,7 @@
 package losango.controllers;
 
 import losango.domain.Coordinate;
-import losango.domain.Hexagon;
+import losango.domain.Tile;
 import losango.services.HexagonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-public class HexagonController {
+public class TileController {
 
     private Logger log = LoggerFactory.getLogger(getClass());
 
@@ -28,9 +28,9 @@ public class HexagonController {
 
 
     @RequestMapping("/hexagon")
-    public Hexagon hexagon(@RequestBody Coordinate coordinate) {
+    public Tile hexagon(@RequestBody Coordinate coordinate) {
         log.info("Getting hexagon at:[{},{}] ", coordinate.getLatitude(), coordinate.getLongitude());
-        return new Hexagon("Blue Balls");
+        return hexagonService.getTile(coordinate.getLatitude(), coordinate.getLongitude());
     }
 
 }

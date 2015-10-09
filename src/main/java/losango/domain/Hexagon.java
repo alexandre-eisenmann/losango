@@ -2,14 +2,21 @@ package losango.domain;
 
 public class Hexagon {
 
-    private String code;
+    public static final double SIZE = 9e-4;
+    private int q;
+    private int r;
 
-    public Hexagon(String code) {
-        this.code = code;
+    public Hexagon(int q, int r) {
+        this.q = q;
+        this.r = r;
     }
 
-    public String getCode() {
-        return code;
+    public Cube toCube() {
+        return new Cube(q,r,-q-r);
+    }
+
+    public String toString(){
+        return q + "#" + r;
     }
 
 }
