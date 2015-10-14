@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by marciomarinho on 8/10/15.
- *
+ * <p/>
  * Test Usage :
- *
+ * <p/>
  * curl -i -X GET -H "Content-Type:application/json" -d '{  "latitude" : "1",  "longitude" : "1" }' http://localhost:8080/hexagon
  */
 
@@ -25,7 +25,6 @@ public class TileController {
 
     @Autowired
     private HexagonService hexagonService;
-
 
     @RequestMapping("/hexagon")
     public Tile hexagon(@RequestBody Coordinate coordinate) {
