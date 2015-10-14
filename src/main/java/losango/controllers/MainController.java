@@ -12,9 +12,9 @@ public class MainController {
 
     private Logger log = LoggerFactory.getLogger(getClass());
 
-    @RequestMapping("*")
+    @RequestMapping("/")
     public String index(HttpServletRequest request) {
         System.out.println(request.getServletPath());
-        return "static/index.html";
+        return "main/index";
     }
 }
