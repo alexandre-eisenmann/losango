@@ -32,4 +32,6 @@ public class TileController {
         return hexagonService.getTile(coordinate.getLatitude(), coordinate.getLongitude());
     }
 
+
+
 }

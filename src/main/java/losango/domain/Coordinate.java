@@ -32,4 +32,5 @@ public class Coordinate {
         this.longitude = longitude;
     }
 
+    public String toString() { return "[" + latitude + "," + longitude + "]"; }
 }
