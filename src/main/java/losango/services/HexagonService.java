@@ -14,7 +14,8 @@ public class HexagonService {
     public Tile getTile(double latitude, double longitude) {
         Hexagon hexagon = Hexagon.getHexagonFromCoordinates(longitude, latitude);
         Tile tile = new Tile(hexagon.toString());
-        tile.setCoordinate(hexagon.getCentralCoordinates());
+        tile.setColumn(hexagon.getColumn());
+        tile.setRow(hexagon.getRow());
         return tile;
     }
 }

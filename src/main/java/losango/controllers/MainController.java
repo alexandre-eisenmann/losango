@@ -14,7 +14,6 @@ public class MainController {
 
     @RequestMapping("/")
     public String index(HttpServletRequest request) {
-        System.out.println(request.getServletPath());
         return "main/index";
     }
 }

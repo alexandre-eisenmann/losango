@@ -6,15 +6,51 @@ var map;
 var infoWindow;
 var styles = [{"featureType":"administrative","stylers":[{"visibility":"off"}]},{"featureType":"poi","stylers":[{"visibility":"simplified"}]},{"featureType":"road","stylers":[{"visibility":"simplified"}]},{"featureType":"water","stylers":[{"visibility":"simplified"}]},{"featureType":"transit","stylers":[{"visibility":"simplified"}]},{"featureType":"landscape","stylers":[{"visibility":"simplified"}]},{"featureType":"road.highway","stylers":[{"visibility":"off"}]},{"featureType":"road.local","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"water","stylers":[{"color":"#84afa3"},{"lightness":52}]},{"stylers":[{"saturation":-77}]},{"featureType":"road"}];
 var latLng;
+var SIZE = 0.0009;
 
 
 function readLatLngFromBrowser(position) {
     setLatLng({"latitude": position.coords.latitude, "longitude": position.coords.longitude});
 }
 
+
+function addTileFromColumnAndRow(q, r) {
+    var latitude = SIZE * 3/2 * r;
+    var longitude = SIZE * Math.sqrt(3) * (q + r/2);
+    addTile(latitude, longitude);
+}
+
+function addTile(latitude, longitude) {
+    var hexagon = [];
+    for(var i=0; i<6; i++) {
+        var angle = Math.PI / 180 * (60 * i + 30);
+        hexagon.push(
+            {lat: latitude + SIZE * Math.sin(angle),
+                lng: longitude + SIZE * Math.cos(angle)});
+
+    }
+    // Construct the polygon.
+    var hexagon = new google.maps.Polygon({
+        paths: hexagon,
+        strokeColor: '#000000',
+        strokeOpacity: 0.35,
+        strokeWeight: 6,
+        fillColor: '#000000',
+        fillOpacity: 0.15
+    });
+    hexagon.setMap(map);
+
+    // Add a listener for the click event.
+    hexagon.addListener('click', showArrays);
+
+    infoWindow = new google.maps.InfoWindow;
+
+}
+
+
+
 function setLatLng(coordinate) {
     latLng = coordinate;
-    var hexagon = [];
 
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 18,
@@ -32,29 +68,20 @@ function setLatLng(coordinate) {
         data: JSON.stringify(latLng),
         success: function (data, status, jqXHR) {
 
-            var size = 0.0009;
-            for(var i=0; i<6; i++) {
-                var angle = Math.PI / 180 * (60 * i + 30);
-                hexagon.push(
-                    {lat: data.coordinate.latitude + size * Math.sin(angle),
-                        lng: data.coordinate.longitude + size * Math.cos(angle)});
+//            var latitude = data.coordinate.latitude;
+//            var longitude = data.coordinate.longitude;
 
-            }
-            // Construct the polygon.
-            var bermudaTriangle = new google.maps.Polygon({
-                paths: hexagon,
-                strokeColor: '#000000',
-                strokeOpacity: 0.8,
-                strokeWeight: 6,
-                fillColor: '#000000',
-                fillOpacity: 0.35
-            });
-            bermudaTriangle.setMap(map);
+            var row = data.row;
+            var column = data.column;
 
-            // Add a listener for the click event.
-            bermudaTriangle.addListener('click', showArrays);
-
-            infoWindow = new google.maps.InfoWindow;
+//            addTile(latitude, longitude);
+            addTileFromColumnAndRow(column, row);
+            addTileFromColumnAndRow(column+1, row);
+            addTileFromColumnAndRow(column+1, row-1);
+            addTileFromColumnAndRow(column, row-1);
+            addTileFromColumnAndRow(column-1, row);
+            addTileFromColumnAndRow(column-1, row+1);
+            addTileFromColumnAndRow(column, row+1);
 
 
             var circle = new google.maps.Circle({

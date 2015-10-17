@@ -14,6 +14,13 @@ public class HexagonTest {
     }
 
     @Test
+    public void getTestGetCentralCoordinate() {
+        Hexagon hex = new Hexagon(109524,-25061);
+        assertEquals(-33.832350000000005, hex.getCentralCoordinates().getLatitude(),0.00000001);
+        assertEquals(151.1979030035387, hex.getCentralCoordinates().getLongitude(), 0.00000001);
+    }
+
+    @Test
     public void testGetHexagonFromLatitudeAndLongitude() {
         Hexagon hex = Hexagon.getHexagonFromCoordinates(0, 0);
         assertEquals("0#0", hex.toString());

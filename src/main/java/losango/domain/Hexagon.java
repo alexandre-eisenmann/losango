@@ -32,8 +32,8 @@ public class Hexagon {
 
 
     public Coordinate getCentralCoordinates() {
-        double x = SIZE * Math.sqrt(3) * (q + r/2);
-        double y = SIZE * 3/2 * r;
+        double x = SIZE * Math.sqrt(3) * (q + r/2.0);
+        double y = SIZE * 3.0/2 * r;
         return new Coordinate(y,x);
     }
 
