@@ -5,8 +5,10 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import gherkin.deps.com.google.gson.JsonObject;
 import losango.Application;
 import losango.domain.Coordinate;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
@@ -21,6 +23,8 @@ import java.util.Arrays;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+
+import static uk.co.datumedge.hamcrest.json.SameJSONAs.sameJSONObjectAs;
 
 /**
  * Created by marciomarinho on 8/10/15.
@@ -71,7 +75,15 @@ public class LosangoSteps {
     @Then("^I should see \"([^\"]*)\"$")
     public void i_should_see(String parameter) throws Throwable {
         assertThat(this.status.value(), is(200));
-//        assertThat(this.serviceResult, is("{\"code\":\"" + parameter + "\"}"));
+
+        JSONObject expectedObject=new JSONObject();
+        expectedObject.put("code", parameter);
+
+        assertThat(new JSONObject(this.serviceResult),
+                sameJSONObjectAs(expectedObject)
+                        .allowingExtraUnexpectedFields()
+                        .allowingAnyArrayOrdering());
+
     }
 
 }
