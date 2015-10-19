@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class HexagonService {
 
-    public static final int TILE_SIZE = 256;
+    public static final double TILE_SIZE = 256.0;
 
     public Tile getTile(double latitude, double longitude) {
         double[] coordinates = fromLatLngToMercatorPoint(latitude, longitude);
@@ -20,8 +20,8 @@ public class HexagonService {
 
 
     public double[] fromLatLngToMercatorPoint(double latitude, double longitude) {
-        double x = (longitude + 180) / 360.0 * TILE_SIZE;
-        double y = ((1 - Math.log(Math.tan(latitude * Math.PI / 180.0) + 1 / Math.cos(latitude * Math.PI / 180.0)) / Math.PI) / 2.0 * Math.pow(2, 0)) * TILE_SIZE;
+        double x = (longitude + 180.0) / 360.0 * TILE_SIZE;
+        double y = ((1 - Math.log(Math.tan(Math.toRadians(latitude)) + 1 / Math.cos(Math.toRadians(latitude))) / Math.PI) / 2.0) * TILE_SIZE;
         return new double[] {x,y};
     }
 }

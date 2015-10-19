@@ -48,8 +48,8 @@ public class Hexagon {
 
 
     public static Hexagon getHexagonFromCoordinates(double x, double y) {
-        double q = (x * Math.sqrt(3)/3 - y/3) / Hexagon.SIZE;
-        double r = y * 2/3 / Hexagon.SIZE;
+        double q = (x * Math.sqrt(3.0)/3.0 - y/3.0) / Hexagon.SIZE;
+        double r = y * 2.0/3.0 / Hexagon.SIZE;
         return getRoundedHexagon(q,r);
     }
 
@@ -58,9 +58,9 @@ public class Hexagon {
         int ry = (int) Math.round(r);
         int rz = (int) Math.round(-q-r);
 
-        int dx = (int) Math.abs(rx - q);
-        int dy = (int) Math.abs(ry - r);
-        int dz = (int) Math.abs(rz - (-q-r));
+        double dx = Math.abs(rx - q);
+        double dy = Math.abs(ry - r);
+        double dz = Math.abs(rz - (-q-r));
 
         if (dx > dy && dx > dz)
             rx = -ry-rz;

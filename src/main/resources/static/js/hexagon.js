@@ -13,10 +13,7 @@ function readLatLngFromBrowser(position) {
 function addTileFromColumnAndRow(q, r) {
     var y = SIZE * 3/2 * r;
     var x = SIZE * Math.sqrt(3) * (q + r/2);
-    addTile(x, y);
-}
 
-function addTile(x,y) {
     var hexagon = [];
     for(var i=0; i<6; i++) {
         var angle = Math.PI / 180 * (60 * i + 30);
@@ -34,17 +31,36 @@ function addTile(x,y) {
     });
     hexagon.setMap(map);
 
+    function showArrays(event) {
+        var vertices = this.getPath();
+
+        var contentString = '<b>Hexagon</b><br>' +
+            'Clicked location: <br>' + event.latLng.lat() + ',' + event.latLng.lng() +
+            '<br>Column: <br>' + q +
+            '<br>Row: <br>' + r +
+            '<br>';
+
+        for (var i =0; i < vertices.getLength(); i++) {
+            var xy = vertices.getAt(i);
+            contentString += '<br>' + 'Coordinate ' + i + ':<br>' + xy.lat() + ',' +
+                xy.lng();
+        }
+
+        infoWindow.setContent(contentString);
+        infoWindow.setPosition(event.latLng);
+
+        infoWindow.open(map);
+    }
+
     hexagon.addListener('click', showArrays);
 
     infoWindow = new google.maps.InfoWindow;
-
 }
 
 
 
 function setLatLng(coordinate) {
     latLng = coordinate;
-
 
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 18,
@@ -114,21 +130,3 @@ function bootstrap() {
 
 
 
-function showArrays(event) {
-    var vertices = this.getPath();
-
-    var contentString = '<b>Hexagon</b><br>' +
-        'Clicked location: <br>' + event.latLng.lat() + ',' + event.latLng.lng() +
-        '<br>';
-
-    for (var i =0; i < vertices.getLength(); i++) {
-        var xy = vertices.getAt(i);
-        contentString += '<br>' + 'Coordinate ' + i + ':<br>' + xy.lat() + ',' +
-            xy.lng();
-    }
-
-    infoWindow.setContent(contentString);
-    infoWindow.setPosition(event.latLng);
-
-    infoWindow.open(map);
-}
