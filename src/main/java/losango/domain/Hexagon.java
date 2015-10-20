@@ -1,76 +1,30 @@
 package losango.domain;
 
-import java.util.stream.IntStream;
-
 public class Hexagon {
 
-    public static final double SIZE = 9e-4;
-    private int q;
-    private int r;
+    private int column;
+    private int row;
 
     public Hexagon(int q, int r) {
-        this.q = q;
-        this.r = r;
+        this.column = q;
+        this.row = r;
     }
 
     public Cube toCube() {
-        return new Cube(q,r,-q-r);
+        return new Cube(column, row,-column - row);
     }
 
     public String toString(){
-        return q + "#" + r;
+        return column + "#" + row;
     }
 
 
     public int getColumn() {
-        return q;
+        return column;
     }
 
     public int getRow() {
-        return r;
+        return row;
     }
-
-
-    public Coordinate getCentralCoordinates() {
-        double x = SIZE * Math.sqrt(3) * (q + r/2.0);
-        double y = SIZE * 3.0/2 * r;
-        return new Coordinate(y,x);
-    }
-
-    public Coordinate[] getCorners() {
-        Coordinate centre = getCentralCoordinates();
-        return IntStream.range(0, 6).mapToObj(i -> {
-            double angle = Math.PI / 180 * (60 * i + 30);
-            return new Coordinate(centre.getLongitude() + SIZE * Math.cos(angle),
-                    centre.getLatitude() + SIZE * Math.sin(angle));
-        }).toArray(Coordinate[]::new);
-    }
-
-
-    public static Hexagon getHexagonFromCoordinates(double x, double y) {
-        double q = (x * Math.sqrt(3.0)/3.0 - y/3.0) / Hexagon.SIZE;
-        double r = y * 2.0/3.0 / Hexagon.SIZE;
-        return getRoundedHexagon(q,r);
-    }
-
-    public static Hexagon getRoundedHexagon(double q, double r) {
-        int rx = (int) Math.round(q);
-        int ry = (int) Math.round(r);
-        int rz = (int) Math.round(-q-r);
-
-        double dx = Math.abs(rx - q);
-        double dy = Math.abs(ry - r);
-        double dz = Math.abs(rz - (-q-r));
-
-        if (dx > dy && dx > dz)
-            rx = -ry-rz;
-        else if (dy > dz)
-            ry = -rx-rz;
-        else
-            rz = -rx-ry;
-
-        return new Cube(rx,ry,rz).toHexagon();
-    }
-
 
 }

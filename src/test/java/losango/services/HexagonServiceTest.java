@@ -5,12 +5,17 @@ import losango.domain.Coordinate;
 import losango.domain.Hexagon;
 import losango.domain.Tile;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 
 public class HexagonServiceTest extends TestCase {
 
-    HexagonService service = new HexagonService();
+    private HexagonService service;
+
+    public HexagonServiceTest() {
+        service = new HexagonService();
+    }
 
 
     @Test
@@ -25,20 +30,20 @@ public class HexagonServiceTest extends TestCase {
         assertEquals(113772,tile.getRow());
 
         tile = service.getTile(-33.831312,151.197991);
-        assertEquals(94199,tile.getColumn());
-        assertEquals(113772,tile.getRow());
+        assertEquals(94199, tile.getColumn());
+        assertEquals(113772, tile.getRow());
 
         tile = service.getTile(-33.831357, 151.197948);
-        assertEquals(94199,tile.getColumn());
-        assertEquals(113772,tile.getRow());
+        assertEquals(94199, tile.getColumn());
+        assertEquals(113772, tile.getRow());
 
         tile = service.getTile(-33.831424, 151.197870);
-        assertEquals(94199,tile.getColumn());
-        assertEquals(113772,tile.getRow());
+        assertEquals(94199, tile.getColumn());
+        assertEquals(113772, tile.getRow());
 
         tile = service.getTile(-33.831236, 151.198042);
-        assertEquals(94200,tile.getColumn());
-        assertEquals(113771,tile.getRow());
+        assertEquals(94200, tile.getColumn());
+        assertEquals(113771, tile.getRow());
 
     }
 
