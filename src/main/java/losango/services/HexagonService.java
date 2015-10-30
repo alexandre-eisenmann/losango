@@ -13,16 +13,14 @@ public class HexagonService {
     private Cylinder cylinder;
 
     public HexagonService() {
-        cylinder = new Cylinder();
+        cylinder = new Cylinder(9e-4,256.0);
     }
 
 
     public Tile getTile(double latitude, double longitude) {
         Point point = cylinder.fromLatLngToMercatorPoint(latitude, longitude);
         Hexagon hexagon = cylinder.getHexagonFromPoint(point.getX(), point.getY());
-        Tile tile = new Tile(hexagon.toString());
-        tile.setColumn(hexagon.getColumn());
-        tile.setRow(hexagon.getRow());
+        Tile tile = new Tile(hexagon.getRow(), hexagon.getColumn());
         return tile;
     }
 

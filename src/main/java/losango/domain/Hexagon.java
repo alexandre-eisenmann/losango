@@ -1,5 +1,7 @@
 package losango.domain;
 
+import java.util.UUID;
+
 public class Hexagon {
 
     private int column;
@@ -13,11 +15,6 @@ public class Hexagon {
     public Cube toCube() {
         return new Cube(column, row,-column - row);
     }
-
-    public String toString(){
-        return column + "#" + row;
-    }
-
 
     public int getColumn() {
         return column;
