@@ -12,8 +12,10 @@ public class HexagonService {
 
     private Cylinder cylinder;
 
+
     public HexagonService() {
-        cylinder = new Cylinder(9e-4,256.0);
+
+        cylinder = new Cylinder(16e-4,256.0);
     }
 
 

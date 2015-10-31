@@ -4,11 +4,11 @@ import java.util.stream.IntStream;
 
 public class Cylinder {
 
-    private double hexagonSide = 9e-4;
+    private double hexagonSide;
     private double cylinderCircunference = 256.0;
 
-    public Cylinder(double hexagonSide, double cylinderCircunference) {
-        this.hexagonSide = hexagonSide;
+    public Cylinder(double hexagonWidth, double cylinderCircunference) {
+        this.hexagonSide = hexagonWidth/Math.sqrt(3);
         this.cylinderCircunference = cylinderCircunference;
     }
 
