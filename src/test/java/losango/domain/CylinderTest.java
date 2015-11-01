@@ -1,5 +1,6 @@
 package losango.domain;
 
+import junit.framework.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,7 +12,6 @@ public class CylinderTest {
 
     @Test
     public void testToCube() {
-
 
     }
 
@@ -38,6 +38,42 @@ public class CylinderTest {
 
     }
 
+    @Test
+    public void testGetNormalizedHexagon() {
+        Cylinder c = new Cylinder(10,100);
+        Hexagon neighbor = c.getNormalizedHexagon(0,0);
+        assertEquals(0,neighbor.getColumn());
+        assertEquals(0,neighbor.getRow());
+
+        neighbor = c.getNormalizedHexagon(1,1);
+        assertEquals(1,neighbor.getColumn());
+        assertEquals(1,neighbor.getRow());
+
+        neighbor = c.getNormalizedHexagon(10,0);
+        assertEquals(0,neighbor.getColumn());
+        assertEquals(0,neighbor.getRow());
+
+        neighbor = c.getNormalizedHexagon(11,-2);
+        assertEquals(1,neighbor.getColumn());
+        assertEquals(-2,neighbor.getRow());
+
+        neighbor = c.getNormalizedHexagon(11,-3);
+        assertEquals(1,neighbor.getColumn());
+        assertEquals(-3,neighbor.getRow());
+
+        neighbor = c.getNormalizedHexagon(9,2);
+        assertEquals(-1,neighbor.getColumn());
+        assertEquals(2,neighbor.getRow());
+
+        neighbor = c.getNormalizedHexagon(8,3);
+        assertEquals(8,neighbor.getColumn());
+        assertEquals(3,neighbor.getRow());
+
+        neighbor = c.getNormalizedHexagon(-2,3);
+        assertEquals(8,neighbor.getColumn());
+        assertEquals(3,neighbor.getRow());
+
+    }
 
 
 }

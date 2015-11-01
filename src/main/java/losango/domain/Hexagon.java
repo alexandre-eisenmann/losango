@@ -24,4 +24,9 @@ public class Hexagon {
         return row;
     }
 
+    public String toString() {
+        return column + " " + row;
+    }
+
+
 }

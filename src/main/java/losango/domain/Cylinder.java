@@ -4,10 +4,12 @@ import java.util.stream.IntStream;
 
 public class Cylinder {
 
+    private double hexagonWidth;
     private double hexagonSide;
     private double cylinderCircunference = 256.0;
 
     public Cylinder(double hexagonWidth, double cylinderCircunference) {
+        this.hexagonWidth = hexagonWidth;
         this.hexagonSide = hexagonWidth/Math.sqrt(3);
         this.cylinderCircunference = cylinderCircunference;
     }
@@ -16,6 +18,12 @@ public class Cylinder {
         double q = (x * Math.sqrt(3.0)/3.0 - y/3.0) / hexagonSide;
         double r = y * 2.0/3.0 / hexagonSide;
         return getRoundedHexagon(q,r);
+    }
+
+    public Hexagon getNormalizedHexagon(int column, int row) {
+        int nHex = (int) (cylinderCircunference/hexagonWidth);
+        int start = (row / 2) * - 1;
+        return new Hexagon(((nHex + ((column - start) % nHex)) % nHex) + start, row);
     }
 
     public Point fromLatLngToMercatorPoint(double latitude, double longitude) {
