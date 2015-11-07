@@ -28,13 +28,13 @@ public class CylinderTest {
         assertEquals(0, hex.getColumn());
         assertEquals(0, hex.getRow());
 
-        hex = cylinder.getHexagonFromPoint(-33.722024, 151.021761);
-        assertEquals(-75572, hex.getColumn());
-        assertEquals(108991, hex.getRow());
+        hex = cylinder.getHexagonFromPoint(0, 0);
+        assertEquals(0, hex.getColumn());
+            assertEquals(0, hex.getRow());
 
-        hex = cylinder.getHexagonFromPoint(-33.722519, 151.023420);
-        assertEquals(-75573, hex.getColumn());
-        assertEquals(108992, hex.getRow());
+        hex = cylinder.getHexagonFromPoint(128, 128);
+        assertEquals(33812, hex.getColumn());
+        assertEquals(92376, hex.getRow());
 
     }
 

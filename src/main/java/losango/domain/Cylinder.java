@@ -17,7 +17,8 @@ public class Cylinder {
     public Hexagon getHexagonFromPoint(double x, double y) {
         double q = (x * Math.sqrt(3.0)/3.0 - y/3.0) / hexagonSide;
         double r = y * 2.0/3.0 / hexagonSide;
-        return getRoundedHexagon(q,r);
+        Hexagon hex = getRoundedHexagon(q, r);
+        return getNormalizedHexagon(hex.getColumn(), hex.getRow());
     }
 
     public Hexagon getNormalizedHexagon(int column, int row) {
