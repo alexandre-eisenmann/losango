@@ -4,7 +4,7 @@ import losango.domain.Cylinder;
 import losango.domain.Hexagon;
 import losango.domain.Point;
 import losango.domain.Tile;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,7 +22,7 @@ public class HexagonService {
     public Tile getTile(double latitude, double longitude) {
         Point point = cylinder.fromLatLngToMercatorPoint(latitude, longitude);
         Hexagon hexagon = cylinder.getHexagonFromPoint(point.getX(), point.getY());
-        Tile tile = new Tile(hexagon.getRow(), hexagon.getColumn());
+        Tile tile = new Tile("" + hexagon.getRow(), "" + hexagon.getColumn());
         return tile;
     }
 

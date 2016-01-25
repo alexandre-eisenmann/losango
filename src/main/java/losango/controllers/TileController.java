@@ -1,5 +1,6 @@
 package losango.controllers;
 
+import losango.TileRepository;
 import losango.domain.Coordinate;
 import losango.domain.Tile;
 import losango.services.HexagonService;
@@ -24,14 +25,17 @@ public class TileController {
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
+    private TileRepository repository;
+
+    @Autowired
     private HexagonService hexagonService;
 
     @RequestMapping("/hexagon")
     public Tile hexagon(@RequestBody Coordinate coordinate) {
         log.info("Getting hexagon at:[{},{}] ", coordinate.getLatitude(), coordinate.getLongitude());
-        return hexagonService.getTile(coordinate.getLatitude(), coordinate.getLongitude());
+        Tile tile =  hexagonService.getTile(coordinate.getLatitude(), coordinate.getLongitude());
+        repository.save(tile);
+        return tile;
     }
-
-
 
 }

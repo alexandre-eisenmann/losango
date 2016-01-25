@@ -148,6 +148,10 @@ function setLatLng(coordinate) {
         var colMin = Math.min(tnw.q, tsw.q);
         var colMax = Math.max(tne.q, tse.q);
 
+        if (colMin > colMax) {
+            colMax = colMin + (160000 - (colMin - colMax))
+        }
+
         for (var r = rowMin; r <= rowMax; r++) {
             for (var q = colMin; q <= colMax; q++) {
                 renderTile({q: q, r: r});
@@ -204,7 +208,7 @@ function setLatLng(coordinate) {
 }
 
 function bootstrap() {
-
+    //setLatLng({"latitude": -33.856845, "longitude": -180.0})
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(readLatLngFromBrowser);
     } else {

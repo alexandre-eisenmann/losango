@@ -1,27 +1,37 @@
 package losango.domain;
 
+import org.springframework.data.annotation.Id;
+
 public class Tile {
 
-    private String code;
-    private int column;
-    private int row;
+    @Id
+    private String id;
 
-    public Tile(int row, int column) {
+    private String code;
+    private String column;
+    private String row;
+
+    public Tile(String row, String column) {
         this.row = row;
         this.column = column;
         this.code = column + "#" + row;
+        this.id = code;
     }
 
     public String getCode() {
         return code;
     }
 
-    public int getColumn() {
+    public String getColumn() {
         return column;
     }
 
-    public int getRow() {
+    public String getRow() {
         return row;
+    }
+
+    public String toString() {
+        return this.code;
     }
 
 }

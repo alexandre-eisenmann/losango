@@ -5,12 +5,13 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import gherkin.deps.com.google.gson.JsonObject;
 import losango.Application;
+import losango.TileRepository;
 import losango.domain.Coordinate;
+import losango.domain.Tile;
 import org.json.JSONObject;
-import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.http.*;
@@ -46,6 +47,11 @@ public class LosangoSteps {
     private ResponseEntity<String> response;
     private Coordinate coordinate;
     private String serviceResult;
+
+
+
+    @Autowired
+    private TileRepository repository;
 
     @Before
     public void setup() {
@@ -84,6 +90,12 @@ public class LosangoSteps {
                         .allowingExtraUnexpectedFields()
                         .allowingAnyArrayOrdering());
 
+    }
+
+    @Then("^The tile \"([^\"]*)\" should have being stored$")
+    public void i_should_store(String parameter) throws Throwable {
+        Tile tile = repository.findByCode(parameter);
+        assertThat(tile.getCode(), is(parameter));
     }
 
 }
